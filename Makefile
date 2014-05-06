@@ -24,7 +24,7 @@ ifeq ($(JIT), true)
 	LIBS += -L/usr/local/lib/x86_64 -ljit
 endif
 
-WARNINGS = -Wall -Wextra -Werror
+WARNINGS = -Wall -Wextra #-Werror
 C0X = -std=c++0x
 
 ifeq ($(INTERFACE),true)
@@ -33,8 +33,8 @@ ifeq ($(INTERFACE),true)
 endif
 
 CFLAGS = $(ARCH) $(PROFILING) $(OPTIMIZATIONS) $(WARNINGS) $(DEBUG) $(INCLUDE_DIRS) $(FLAGS) $(C0X) #-fno-gcse -fno-crossjumping
-LIBRARIES = -pthread -lm -lreadline -lboost_thread-mt -lboost_system-mt \
-				-lboost_date_time-mt -lboost_regex-mt -ldl $(LIBS)
+LIBRARIES = -pthread -lm -lboost_thread -lboost_system \
+				-lboost_date_time -lboost_regex -ldl $(LIBS)
 
 CXX = g++
 
@@ -52,7 +52,25 @@ CXXFLAGS = $(CFLAGS)
 LDFLAGS = $(PROFILING) $(LIBRARY_DIRS) $(LIBRARIES)
 COMPILE = $(CXX) $(CXXFLAGS) $(OBJS)
 
-SRCS = utils/utils.cpp \
+SRCS =  vm/dummy-exec.cpp \
+	vm/dummy-external.cpp \
+	vm/dummy-program.cpp \
+	vm/dummy-rule_matcher.cpp \
+	vm/dummy-state.cpp \
+	vm/dummy-tuple.cpp \
+	db/dummy-database.cpp \
+	db/dummy-hash_table.cpp \
+	db/dummy-node.cpp \
+	db/dummy-trie.cpp \
+	db/dummy-tuple.cpp \
+	mem/dummy-center.cpp \
+	process/dummy-machine.cpp \
+	sched/dummy-base.cpp \
+	stat/dummy-stat.cpp \
+	utils/dummy-fs.cpp \
+	dummy-interface.cpp
+
+	#utils/utils.cpp \
 		 	utils/types.cpp \
 			utils/fs.cpp \
 			 vm/program.cpp \
