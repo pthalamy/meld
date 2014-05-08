@@ -8,7 +8,7 @@ LIBRARY_DIRS =
 
 ARCH = -march=x86-64
 FLAGS =
-LIBS = 
+LIBS =
 
 ifeq ($(RELEASE), true)
 	DEBUG =
@@ -32,7 +32,7 @@ ifeq ($(INTERFACE),true)
 	FLAGS += -DUSE_UI=1
 endif
 
-CFLAGS = $(ARCH) $(PROFILING) $(OPTIMIZATIONS) $(WARNINGS) $(DEBUG) $(INCLUDE_DIRS) $(FLAGS) $(C0X) #-fno-gcse -fno-crossjumping
+CFLAGS = $(ARCH) $(PROFILING) $(OPTIMIZATIONS) $(WARNINGS) $(DEBUG) $(INCLUDE_DIRS) $(FLAGS) $(C0X) -DBLINKYBLOCKS #-fno-gcse -fno-crossjumping
 LIBRARIES = -pthread -lm -lboost_thread -lboost_system \
 				-lboost_date_time -lboost_regex -ldl $(LIBS)
 
@@ -52,7 +52,58 @@ CXXFLAGS = $(CFLAGS)
 LDFLAGS = $(PROFILING) $(LIBRARY_DIRS) $(LIBRARIES)
 COMPILE = $(CXX) $(CXXFLAGS) $(OBJS)
 
-SRCS =  vm/dummy-exec.cpp \
+SRCS = utils/utils.cpp \
+	utils/types.cpp \
+	utils/fs.cpp \
+	vm/program.cpp \
+	vm/predicate.cpp \
+	vm/types.cpp \
+	vm/instr.cpp \
+	vm/state.cpp \
+	vm/tuple.cpp \
+	vm/exec.cpp \
+	vm/external.cpp \
+	vm/rule.cpp \
+	vm/rule_matcher.cpp \
+	vm/stat.cpp \
+	db/node.cpp \
+	db/tuple.cpp \
+	db/agg_configuration.cpp \
+	db/tuple_aggregate.cpp \
+	db/database.cpp \
+	db/trie.cpp \
+	db/hash_table.cpp \
+	process/machine.cpp \
+	process/remote.cpp \
+	process/router.cpp \
+	mem/thread.cpp \
+	mem/center.cpp \
+	mem/stat.cpp \
+	sched/base.cpp \
+	sched/common.cpp \
+	sched/serial.cpp \
+	sched/serial_ui.cpp \
+	thread/threads.cpp \
+	thread/prio.cpp \
+	sched/thread/threaded.cpp \
+	sched/thread/assert.cpp \
+	external/math.cpp \
+	external/lists.cpp \
+	external/utils.cpp \
+	external/strings.cpp \
+	external/others.cpp \
+	external/core.cpp \
+	external/structs.cpp \
+	stat/stat.cpp \
+	stat/slice.cpp \
+	stat/slice_set.cpp \
+	ui/manager.cpp \
+	ui/client.cpp \
+	interface.cpp \
+	sched/sim.cpp \
+	jit/build.cpp
+
+#vm/exec.cpp \
 	vm/dummy-external.cpp \
 	vm/dummy-program.cpp \
 	vm/dummy-rule_matcher.cpp \
@@ -69,57 +120,6 @@ SRCS =  vm/dummy-exec.cpp \
 	stat/dummy-stat.cpp \
 	utils/dummy-fs.cpp \
 	dummy-interface.cpp
-
-	#utils/utils.cpp \
-		 	utils/types.cpp \
-			utils/fs.cpp \
-			 vm/program.cpp \
-			 vm/predicate.cpp \
-			 vm/types.cpp \
-			 vm/instr.cpp \
-			 vm/state.cpp \
-			 vm/tuple.cpp \
-			 vm/exec.cpp \
-			 vm/external.cpp \
-			 vm/rule.cpp \
-			 vm/rule_matcher.cpp \
-			 vm/stat.cpp \
-			 db/node.cpp \
-			 db/tuple.cpp \
-			 db/agg_configuration.cpp \
-			 db/tuple_aggregate.cpp \
-			 db/database.cpp \
-			 db/trie.cpp \
-			 db/hash_table.cpp \
-			 process/machine.cpp \
-			 process/remote.cpp \
-			 process/router.cpp \
-			 mem/thread.cpp \
-			 mem/center.cpp \
-			 mem/stat.cpp \
-			 sched/base.cpp \
-			 sched/common.cpp \
-			 sched/serial.cpp \
-			 sched/serial_ui.cpp \
-			 thread/threads.cpp \
-			 thread/prio.cpp \
-			 sched/thread/threaded.cpp \
-			 sched/thread/assert.cpp \
-			 external/math.cpp \
-			 external/lists.cpp \
-			 external/utils.cpp \
-			 external/strings.cpp \
-			 external/others.cpp \
-			 external/core.cpp \
-			 external/structs.cpp \
-			 stat/stat.cpp \
-			 stat/slice.cpp \
-			 stat/slice_set.cpp \
-			 ui/manager.cpp \
-			 ui/client.cpp \
-			 interface.cpp \
-			 sched/sim.cpp \
-			 jit/build.cpp
 
 OBJS = $(patsubst %.cpp,%.o,$(SRCS))
 

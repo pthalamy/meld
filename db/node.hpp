@@ -52,12 +52,18 @@ private:
                std::less<vm::predicate_id>,
                mem::allocator<std::pair<const vm::predicate_id,
                                  tuple_trie*> > > simple_tuple_map;
+  /*#ifdef BLINKYBLOCKS
+    typedef std::map<vm::predicate_id, intrusive_list*,
+    std::less<vm::predicate_id>,
+    mem::allocator<std::pair<const vm::predicate_id,
+    intrusive_list*> > > tuple_map; 
+    #endif*/
                                  
    typedef std::map<vm::predicate_id, tuple_aggregate*,
                std::less<vm::predicate_id>,
                mem::allocator<std::pair<const vm::predicate_id,
                                  tuple_aggregate*> > > aggregate_map;
-	
+  
 	// tuple database
    simple_tuple_map tuples;
    

@@ -16,10 +16,11 @@ namespace db
 database::database(const string& filename, create_node_fn _create_fn):
    create_fn(_create_fn), nodes_total(0)
 {
+  //#ifndef BLINKYBLOCKS
    int_val num_nodes;
    node::node_id fake_id;
    node::node_id real_id;
-   
+
    ifstream fp(filename.c_str(), ios::in | ios::binary);
 
    fp.seekg(vm::MAGIC_SIZE, ios_base::cur); // skip magic
@@ -30,7 +31,7 @@ database::database(const string& filename, create_node_fn _create_fn):
    fp.read((char*)&num_nodes, sizeof(int_val));
    
    nodes_total = num_nodes;
-   
+
    All->ROUTER->set_nodes_total(nodes_total); // can throw database_error
    
    const size_t nodes_to_skip(remote::self->get_nodes_base());
@@ -67,6 +68,10 @@ database::database(const string& filename, create_node_fn _create_fn):
          fp.seekg(node_size * nodes_left, ios_base::cur);
       //remote::rout(cout) << "skip last " << nodes_left << " nodes" << endl;
    }
+   //#else
+   // Create node base on static fake_id and real block id (get_real_id() function in api?)
+   // node *node(create_fn(1, get_real_id());
+   //#endif
 }
 
 database::~database(void)
@@ -74,6 +79,8 @@ database::~database(void)
    for(map_nodes::iterator it(nodes.begin()); it != nodes.end(); ++it)
       delete it->second;
 }
+
+  //#ifndef BLINKYBLOCKS
 
 node*
 database::find_node(const node::node_id id) const
@@ -214,5 +221,5 @@ ostream& operator<<(ostream& cout, const database& db)
    db.print(cout);
    return cout;
 }
-
+  #//endif
 }

@@ -322,9 +322,9 @@ machine::machine(const string& file, router& _rout, const size_t th,
          throw machine_error(string("data file ") + data_file + string(" not found"));
       }
    }
-
+   //#ifndef BLINKYBLOCKS
    this->all->ROUTER = &_rout;
-
+   //#endif
    if(margs.size() < this->all->PROGRAM->num_args_needed())
       throw machine_error(string("this program requires ") + utils::to_string(all->PROGRAM->num_args_needed()) + " arguments");
 

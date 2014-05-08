@@ -38,8 +38,10 @@ class all
    
    db::database *DATABASE;
    process::machine *MACHINE;
+  //#ifndef BLINKYBLOCKS
    //process::remote *REMOTE;
    process::router *ROUTER;
+  //#endif
    size_t NUM_THREADS;
    size_t NUM_NODES_PER_PROCESS;
 	machine_arguments ARGS;
