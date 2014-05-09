@@ -6,6 +6,10 @@
 
 #define MAX_CONSTS 32
 
+#ifndef BLINKYBLOCKS
+#define access_global_variable(x) this->all->x
+#endif  
+
 // forward declaration
 namespace db {
    class database;
