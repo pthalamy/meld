@@ -1,8 +1,6 @@
-#ifndef LINKED_LIST_HPP
-#define LINKED_LIST_HPP
 
-#include "vm/tuple.hpp"
-#include "vm/predicate.hpp"
+#ifndef DB_LINKED_LIST_HPP
+#define DB_LINKED_LIST_HPP
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,30 +9,33 @@
 
 #include <iostream>
 
-using namespace std;
-
 extern "C" {  
-  struct Node* search_in_list(struct linked_list *ls, void *tpl, struct Node **prev);
-  int delete_from_list(struct linked_list *ls, void *tpl);
-  void add_last(struct linked_list *ls, void *tpl);
-  struct Node* create_list(struct linked_list *ls, void *tpl, void *pred);
+#define VM_TUPLE_PTR void*
+#define VM_PRE_PTR void*
+
+  struct Node {
+    VM_TUPLE_PTR tuplePtr;
+    struct Node *next;
+  };
+  typedef struct Node list_node;
+  
+  struct linked_list {
+    list_node *head;
+    list_node *tail;
+    VM_PRE_PTR root_predicate;
+  };
+  typedef struct linked_list linked_list;
+  
+  list_node* search_in_list(linked_list *ls, void *tpl, list_node **prev);
+  int delete_from_list(linked_list *ls, void *tpl);
+  void add_last(linked_list *ls, void *tpl);
+  list_node* create_list(linked_list *ls, void *tpl, void *pred);
 }
 
 void
-print_tuple(void *tpl, void *pred) 
-{
-  vm::tuple *print_tpl = (vm::tuple*) tpl;
-  vm::predicate *print_pred = (vm::predicate*) pred;
-  print_tpl->print(cout, print_pred);
-}
+print_tuple(void *tpl, void *pred);
 
 bool 
-list_tuple_equal(void* tpll, void* tpla, void *preda)
-{
-  vm::tuple *ls_tpl = (vm::tuple*) tpll;
-  vm::tuple *ext_tpl = (vm::tuple*) tpla;
-  vm::predicate *pred = (vm::predicate*) preda;
-  return (ls_tpl->equal(*ext_tpl, pred));
-}
+list_tuple_equal(void* tpll, void* tpla, void *preda);
 
 #endif

@@ -6,14 +6,14 @@
 #include <vector>
 #include <assert.h>
 
+//#ifdef BLINKYBLOCKS
+#include "db/linked_list.hpp"
+//#endif
 #include "vm/types.hpp"
 #include "vm/defs.hpp"
 #include "utils/types.hpp"
 #include "vm/reader.hpp"
 #include "vm/bitmap.hpp"
-#ifdef BLINKYBLOCKS
-# include "db/linked_list.hpp"
-#endif
 
 namespace vm {
 
@@ -76,7 +76,9 @@ private:
    field_num hash_argument;
 
    // Linked tuple list to work with Blinky Block version of vm
+   //#ifdef BLINKYBLOCKS
    linked_list tpl_list;
+   //#endif
 
    // index of this predicate's arguments in the whole set of program's predicates
    size_t argument_position;

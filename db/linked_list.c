@@ -1,29 +1,10 @@
 #include "linked_list.hpp"
 
-#define VM_TUPLE_PTR void*
-#define VM_PRE_PTR void*
-
-struct Node
+list_node* 
+search_in_list(linked_list *ls, VM_TUPLE_PTR tpl, list_node **prev)
 {
-  VM_TUPLE_PTR tuplePtr;
-  struct Node *next;
-};
-
-struct linked_list 
-{
-  
-  struct Node *head;
-  struct Node *tail;
-  
-  VM_PRE_PTR root_predicate;
-  
-};
-
-struct Node* 
-search_in_list(struct linked_list *ls, VM_TUPLE_PTR tpl, struct Node **prev)
-{
-  struct Node *ptr = ls->head;
-  struct Node *tmp = NULL;
+  list_node *ptr = ls->head;
+  list_node *tmp = NULL;
   bool found = false;
       
   while(ptr != NULL) {
@@ -48,10 +29,10 @@ search_in_list(struct linked_list *ls, VM_TUPLE_PTR tpl, struct Node **prev)
 }
 
 int 
-delete_from_list(struct linked_list *ls, VM_TUPLE_PTR tpl)
+delete_from_list(linked_list *ls, VM_TUPLE_PTR tpl)
 {
-  struct Node *prev = NULL;
-  struct Node *del = NULL;
+  list_node *prev = NULL;
+  list_node *del = NULL;
 
   del = search_in_list(ls, tpl, &prev);
   if(del == NULL)
@@ -73,9 +54,9 @@ return 0;
 }
   
 void 
-add_last(struct linked_list *ls, VM_TUPLE_PTR tpl) 
+add_last(linked_list *ls, VM_TUPLE_PTR tpl) 
 {
-  Node *newNode = (struct Node*)malloc(sizeof(struct Node));
+  Node *newNode = (list_node*)malloc(sizeof(list_node));
  
   newNode->tuplePtr = tpl;
   newNode->next = NULL;
@@ -88,11 +69,11 @@ add_last(struct linked_list *ls, VM_TUPLE_PTR tpl)
   ls->tail = newNode;
 }
   
-struct Node* 
-create_list(struct linked_list *ls, VM_TUPLE_PTR tpl, VM_PRE_PTR pred)
+list_node* 
+create_list(linked_list *ls, VM_TUPLE_PTR tpl, VM_PRE_PTR pred)
 {
   ls->root_predicate = pred;
-  struct Node *ptr = (struct Node*)malloc(sizeof(struct Node));
+  list_node *ptr = (list_node*)malloc(sizeof(list_node));
   
   assert(ptr != NULL);
   
@@ -104,9 +85,9 @@ create_list(struct linked_list *ls, VM_TUPLE_PTR tpl, VM_PRE_PTR pred)
 }
 
 void 
-print_list(struct linked_list *ls)
+print_list(linked_list *ls)
 {
-  struct Node *ptr = ls->head;
+  list_node *ptr = ls->head;
 
   printf("\n ------- Beginning of list ------- \n");
   while(ptr != NULL) {
