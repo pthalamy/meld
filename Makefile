@@ -24,7 +24,7 @@ ifeq ($(JIT), true)
 	LIBS += -L/usr/local/lib/x86_64 -ljit
 endif
 
-WARNINGS = -Wall -Wextra -Werror
+WARNINGS = -Wall -Wextra #-Werror
 C0X = -std=c++0x
 
 ifeq ($(INTERFACE),true)
@@ -33,8 +33,12 @@ ifeq ($(INTERFACE),true)
 endif
 
 CFLAGS = $(ARCH) $(PROFILING) $(OPTIMIZATIONS) $(WARNINGS) $(DEBUG) $(INCLUDE_DIRS) $(FLAGS) $(C0X) #-fno-gcse -fno-crossjumping
-LIBRARIES = -pthread -lm -lreadline -lboost_thread-mt -lboost_system-mt \
+LIBRARIES = -pthread -lm -lboost_thread -lboost_system \
+				-lboost_date_time -lboost_regex -ldl $(LIBS)
+# THIS MIGHT NEED TO BE CHANGED TO: \
+LIBRARIES = -pthread -lm -lboost_thread-mt -lboost_system-mt \
 				-lboost_date_time-mt -lboost_regex-mt -ldl $(LIBS)
+
 
 CXX = g++
 
@@ -101,7 +105,8 @@ SRCS = utils/utils.cpp \
 			 ui/client.cpp \
 			 interface.cpp \
 			 sched/sim.cpp \
-			 jit/build.cpp
+			 jit/build.cpp \
+			 db/linked_list.c
 
 OBJS = $(patsubst %.cpp,%.o,$(SRCS))
 
