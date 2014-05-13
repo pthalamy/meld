@@ -219,6 +219,9 @@ predicate::predicate(void): store_type(LINKED_LIST)
 {
    tuple_size = 0;
    agg_info = NULL;
+   //#ifdef BLINKYBLOCKS
+   tpl_list = create_list(this);
+   //#endif
 }
 
 void

@@ -107,7 +107,7 @@ SRCS = utils/utils.cpp \
 			 sched/sim.cpp \
 			 jit/build.cpp \
 			 db/linked_list.c \
-			 db/linked_list_cpp.cpp
+			 db/linked_list_cpp.cpp 
 
 OBJS = $(patsubst %.cpp,%.o,$(SRCS))
 

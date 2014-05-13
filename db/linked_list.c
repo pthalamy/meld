@@ -1,5 +1,7 @@
 #include "linked_list.hpp"
 
+// Finds a tuple in the list - returns the node which contains it.
+// If a **prev node has been given as argument, the function makes it point to the node before the matching node for deletion.
 list_node* 
 search_in_list(linked_list *ls, VM_TUPLE_PTR tpl, list_node **prev)
 {
@@ -28,6 +30,7 @@ search_in_list(linked_list *ls, VM_TUPLE_PTR tpl, list_node **prev)
   }
 }
 
+// Delete a node from the list
 int 
 delete_from_list(linked_list *ls, VM_TUPLE_PTR tpl)
 {
@@ -53,6 +56,7 @@ del = NULL;
 return 0;
 }
   
+// Add a new node at the end of the list, after current tail
 void 
 add_last(linked_list *ls, VM_TUPLE_PTR tpl) 
 {
@@ -69,19 +73,18 @@ add_last(linked_list *ls, VM_TUPLE_PTR tpl)
   ls->tail = newNode;
 }
   
-list_node* 
-create_list(linked_list *ls, VM_TUPLE_PTR tpl, VM_PRE_PTR pred)
+// Create new list for predicate pred
+linked_list* 
+create_list(VM_PRE_PTR pred)
 {
+  linked_list *ls = (linked_list*)malloc(sizeof(linked_list));
+  assert(ls != NULL);
   ls->root_predicate = pred;
-  list_node *ptr = (list_node*)malloc(sizeof(list_node));
   
-  assert(ptr != NULL);
-  
-  ptr->tuplePtr = tpl;
-  ptr->next = NULL;
-  ls->head = ptr;
-  
-  return ptr;
+  ls->head = NULL;
+  ls->tail = NULL;
+
+  return ls;
 }
 
 void 

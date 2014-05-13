@@ -29,7 +29,7 @@ extern "C" {
   list_node* search_in_list(linked_list *ls, void *tpl, list_node **prev);
   int delete_from_list(linked_list *ls, void *tpl);
   void add_last(linked_list *ls, void *tpl);
-  list_node* create_list(linked_list *ls, void *tpl, void *pred);
+  linked_list* create_list(void *pred);
 }
 
 void

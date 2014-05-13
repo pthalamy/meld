@@ -75,9 +75,9 @@ private:
    store_type_t store_type;
    field_num hash_argument;
 
-   // Linked tuple list to work with Blinky Block version of vm
+   // Linked tuple list to store tuples on Blinky Block version of vm
    //#ifdef BLINKYBLOCKS
-   linked_list tpl_list;
+   linked_list *tpl_list;
    //#endif
 
    // index of this predicate's arguments in the whole set of program's predicates
